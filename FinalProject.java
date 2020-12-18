@@ -21,8 +21,17 @@ class Homework9{
 	
 	// List Tables to View
 	public static void Option1(){
-		
-		mainMenu();
+	    Scanner scanner = new Scanner(System.in);
+		System.out.println("1. View Teams");
+		System.out.println("2. View Quarterbacks");
+		System.out.println("3. View Offensive Players");
+		System.out.println("4. View Defensive Players");
+		System.out.println("5. View Head Coaches");
+		System.out.println("6. Exit");
+		System.out.print("Enter your choice (1-6):");
+		Input = scanner.nextLine();
+		int InputInt = Integer.parseInt(Input);
+		executeOption1( InputInt );
 	}
 	
 	// View Teams Table
@@ -107,26 +116,43 @@ class Homework9{
 			Statement stmt = con.createStatement();
 			String q = "SELECT * FROM Offensive_Player WHERE Season = " + Season;
 			ResultSet rs = stmt.executeQuery(q);
+			
+			// defines the strings that will be used
+			String Player_Name, Jersey_Number, Birthday, Team_Name, Position, SeasonName, Touchdowns, Passing_Yards, Rushing_Yards, Turnovers;
 
 			// print results
 			while(rs.next()) {
-				String Player_Name = rs.getString("Player_Name");
-				String Jersey_Number = rs.getString("Jersey_Number");
-				String Birthday    = rs.getString("Birthday");
-				String Team_Name   = rs.getString("Team_Name");
-				String SeasonName  = rs.getString("Season");
-				String Position    = rs.getString("Position");
-				String Losses      = rs.getString("Losses");
-				String Draws       = rs.getString("Draws");
-				String Superbowl   = rs.getString("Superbowl_Wins");
-				Team_Name          = stringLength(Team_Name, 25);
-				Position           = stringLength(Position, 15);
-				Losses             = stringLength(Losses, 3);
-				Draws              = stringLength(Draws, 3);
-				Superbowl          = stringLength(Superbowl, 3);
-				System.out.println("Team Name: " + Team_Name + " Season: " + SeasonName + "  Position: " + Position + "  Losses: " + Losses + "  Superbowl Wins: " + Superbowl);
+				Player_Name   = rs.getString("Player_Name");
+				Jersey_Number = rs.getString("Jersey_Number");
+				Birthday      = rs.getString("Birthday");
+				Team_Name     = rs.getString("Team_Name");				
+				Position      = rs.getString("Position");
+				SeasonName    = rs.getString("Season");
+				Touchdowns    = rs.getString("Touchdowns");
+				Passing_Yards = rs.getString("Passing_Yards");
+				Rushing_Yards = rs.getString("Rushing_Yards");
+				Turnovers     = rs.getString("Rushing_Yards");
+				Player_Name   = stringLength(Player_Name, 25);
+				Jersey_Number = stringLength(Jersey_Number, 3);
+				Birthday      = stringLength(Birthday, 11);
+				Team_Name     = stringLength(Team_Name, 25);
+				Position      = stringLength(Position, 13);
+				Touchdowns    = stringLength(Touchdowns, 13);
+				Passing_Yards = stringLength(Passing_Yards, 13);
+				Rushing_Yards = stringLength(Rushing_Yards, 13);
+				Turnovers     = stringLength(Turnovers, 13);
+				System.out.println(
+				  "Player_Name: "      + Player_Name 
+				+ "  Jersey Number: "  + Jersey_Number 
+				+ "  Birthday: "       + Birthday 
+				+ "  Team Name: "      + Team_Name 
+				+ "  Position: "       + Position 
+				+ "  Season Name: "    + SeasonName 
+				+ "  Touchdowns: "     + Touchdowns 
+				+ "  Passing Yards: "  + Passing_Yards 
+				+ "  Rushing_Yards: "  + Rushing_Yards
+				+ "  Turnovers: " + Turnovers);
 			}
-
 
 			// release resources
 			rs.close();
@@ -427,6 +453,11 @@ class Homework9{
 		else if(userInput == 5)
 		{
 			Option5();
+		}
+		
+		else if(userInput == 6)
+		{
+		    mainMenu();	
 		}
 		
 		else
